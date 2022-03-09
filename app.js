@@ -29,8 +29,8 @@ const promptUser = () => {
       type: 'input',
       name: 'github',
       message: 'Enter your GitHub Username: (Required)',
-      validate: gitHubInput => {
-        if (gitHubInput) {
+      validate: gitHubUserInput => {
+        if (gitHubUserInput) {
           return true;
         } else {
           console.log('Please enter your GitHub Username!');
@@ -39,9 +39,22 @@ const promptUser = () => {
       }
     },
     {
+      type: 'confirm',
+      name: 'confirmAbout',
+      message: 'Would you like to enter some information about yourself for an "About" section?',
+      default: true
+    },
+    {
       type: 'input',
       name: 'about',
-      message: 'Provide some information about yourself:'
+      message: 'Provide some information about yourself:',
+      when: ({confirmAbout}) => {
+        if (confirmAbout) {
+          return true;
+        } else {
+          return false;
+        }
+      }
     }
   ]);
 };
